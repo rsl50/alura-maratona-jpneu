@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 
 // considerando 2 dígitos + 0x0A + 0x00
 #define LINE_SIZE	4
+
+#define IS_VALID(val) ((val >= 1 && val <= 40) ? true : false)
 
 int main () {
 	FILE *fp;	
@@ -24,7 +27,9 @@ int main () {
     	fgets(buf, sizeof(buf), fp);
     	int pressao_bomba = strtol(buf, NULL, 10);
     	
-    	printf("%d", pressao_motorista - pressao_bomba);
+    	if (IS_VALID(pressao_motorista) && IS_VALID(pressao_bomba)) {
+    		printf("%d", pressao_motorista - pressao_bomba);
+		}
     }
 
     fclose(fp);
